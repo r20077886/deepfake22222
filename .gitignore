@@ -1,0 +1,17 @@
+# Generated files – not needed in the repo
+generate_icons.ps1
+
+# Windows files
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+
+# Editor folders
+.vscode/
+.idea/
+
+# Logs
+*.log

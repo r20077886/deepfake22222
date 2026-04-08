@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>TruthLens – UI Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0; padding: 40px;
+      background: #1a1f2e;
+      display: flex; flex-wrap: wrap;
+      gap: 40px; align-items: flex-start;
+      font-family: 'Inter', sans-serif;
+    }
+    .section-label {
+      color: #5c6882; font-size: 11px; font-weight:600;
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+    .popup-frame {
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    iframe {
+      display: block;
+      border: none;
+    }
+
+    /* ──── Demo page mockup ──────────────────────────────── */
+    .demo-page {
+      width: 520px;
+      background: #f5f5f5;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .demo-browser-bar {
+      background: #ffffff;
+      padding: 10px 14px;
+      display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .dot { width:12px;height:12px;border-radius:50%; }
+    .dot.r{background:#ff5f57;} .dot.y{background:#febc2e;} .dot.g{background:#28c941;}
+    .url-bar {
+      flex:1; background:#f0f0f0; border-radius:6px;
+      padding: 5px 10px; font-size: 12px; color:#555;
+      margin-left: 8px;
+    }
+    .demo-content {
+      padding: 20px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      background: #fff;
+    }
+    .demo-img-wrap {
+      position: relative;
+      border-radius: 8px;
+      overflow: visible;
+    }
+    .demo-img {
+      width: 100%; aspect-ratio: 1;
+      border-radius: 8px;
+      display: block;
+      object-fit: cover;
+    }
+    .tl-badge-demo {
+      position: absolute; top: 5px; left: 5px;
+      padding: 3px 7px; border-radius: 12px;
+      font-size: 10px; font-weight: 700;
+      color: #fff; display: flex; align-items: center; gap: 4px;
+      z-index: 10; white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      animation: pop 0.4s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    }
+    @keyframes pop {
+      from { transform: scale(0.5); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .badge-real { background: rgba(22,101,52,0.9); border: 1px solid #48bb78; outline: 3px solid #48bb78; outline-offset: 2px; border-radius: 8px; }
+    .badge-real .tl-badge-demo { animation-delay: 0.2s;}
+    .badge-fake { background: rgba(127,29,29,0.93); border: 1px solid #fc5c5c; outline: 3px solid #fc5c5c; outline-offset: 2px; border-radius: 8px; }
+    .badge-susp { background: rgba(92,67,0,0.92); border: 1px solid #f6c90e; outline: 3px solid #f6c90e; outline-offset: 2px; border-radius: 8px; }
+
+    /* Warning banner */
+    .tl-warning {
+      background: linear-gradient(135deg,#7f1d1d,#991b1b);
+      color: #fff; font-size: 12px; font-weight:600;
+      padding: 9px 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* Placeholder image gradient boxes */
+    .img-placeholder {
+      width: 100%; aspect-ratio: 1; border-radius: 6px;
+      display: block;
+    }
+    .p1 { background: linear-gradient(135deg, #667eea, #764ba2); }
+    .p2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+    .p3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+    .p4 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+    .p5 { background: linear-gradient(135deg, #fa709a, #fee140); }
+    .p6 { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+
+    /* face icon inside placeholders */
+    .img-placeholder { position: relative; }
+    .img-placeholder::after {
+      content: '👤'; 
+      position: absolute; 
+      top:50%; left:50%; 
+      transform: translate(-50%,-50%); 
+      font-size: 38px; opacity:0.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div>
+    <div class="section-label">Extension Popup</div>
+    <div class="popup-frame">
+      <iframe src="popup.html" width="360" height="490"></iframe>
+    </div>
+  </div>
+
+  <div>
+    <div class="section-label">Content Script Overlay Demo</div>
+    <div class="demo-page">
+      <!-- Warning banner -->
+      <div class="tl-warning">
+        🚨 TruthLens detected deepfake content on this page. Verify before sharing.
+      </div>
+      <!-- Fake browser bar -->
+      <div class="demo-browser-bar">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        <div class="url-bar">https://example-news-site.com/article/celebrity-interview</div>
+      </div>
+      <!-- Demo content with overlays -->
+      <div class="demo-content">
+
+        <div class="demo-img-wrap badge-fake">
+          <div class="img-placeholder p2"></div>
+          <div class="tl-badge-demo" style="background:rgba(127,29,29,0.93);border:1px solid #fc5c5c;">
+            🚨 Deepfake – 89%
+          </div>
+        </div>
+
+        <div class="demo-img-wrap badge-real">
+          <div class="img-placeholder p1"></div>
+          <div class="tl-badge-demo" style="background:rgba(22,101,52,0.9);border:1px solid #48bb78;animation-delay:0.15s">
+            ✅ Real – 94%
+          </div>
+        </div>
+
+        <div class="demo-img-wrap badge-susp">
+          <div class="img-placeholder p3"></div>
+          <div class="tl-badge-demo" style="background:rgba(92,67,0,0.92);border:1px solid #f6c90e;animation-delay:0.3s">
+            ⚠️ Suspicious – 58%
+          </div>
+        </div>
+
+        <div class="demo-img-wrap badge-real">
+          <div class="img-placeholder p4"></div>
+          <div class="tl-badge-demo" style="background:rgba(22,101,52,0.9);border:1px solid #48bb78;animation-delay:0.45s">
+            ✅ Real – 91%
+          </div>
+        </div>
+
+        <div class="demo-img-wrap badge-fake">
+          <div class="img-placeholder p5"></div>
+          <div class="tl-badge-demo" style="background:rgba(127,29,29,0.93);border:1px solid #fc5c5c;animation-delay:0.6s">
+            🚨 Deepfake – 76%
+          </div>
+        </div>
+
+        <div class="demo-img-wrap badge-susp">
+          <div class="img-placeholder p6"></div>
+          <div class="tl-badge-demo" style="background:rgba(92,67,0,0.92);border:1px solid #f6c90e;animation-delay:0.75s">
+            ⚠️ Suspicious – 63%
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+/* ══════════════════════════════════════════════════════
+   TruthLens Content Script – Injected Styles
+   ══════════════════════════════════════════════════════ */
+
+/* ── Base overlay wrapper added around each media element ── */
+.tl-wrapper {
+  position: relative !important;
+  display: inline-block !important;
+  box-sizing: border-box !important;
+}
+
+/* ── Scanning pulse animation ── */
+@keyframes tl-scan-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0.6); }
+  70%  { box-shadow: 0 0 0 10px rgba(99, 179, 237, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(99, 179, 237, 0); }
+}
+
+@keyframes tl-scan-sweep {
+  0%   { transform: translateY(-100%); opacity: 0.8; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+@keyframes tl-fade-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tl-badge-pop {
+  0%   { transform: scale(0.5); opacity: 0; }
+  70%  { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── Scanning state ── */
+.tl-scanning {
+  outline: 2px solid rgba(99, 179, 237, 0.8) !important;
+  outline-offset: 2px !important;
+  animation: tl-scan-pulse 1.2s infinite !important;
+  position: relative !important;
+}
+
+.tl-scan-line {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  height: 3px !important;
+  background: linear-gradient(90deg, transparent, #63b3ed, transparent) !important;
+  pointer-events: none !important;
+  z-index: 2147483640 !important;
+  animation: tl-scan-sweep 1.5s ease-in-out infinite !important;
+}
+
+/* ── Verdict borders ── */
+.tl-real {
+  outline: 3px solid #48bb78 !important;
+  outline-offset: 2px !important;
+  transition: outline 0.3s ease !important;
+}
+
+.tl-fake {
+  outline: 3px solid #fc5c5c !important;
+  outline-offset: 2px !important;
+  transition: outline 0.3s ease !important;
+}
+
+.tl-suspicious {
+  outline: 3px solid #f6c90e !important;
+  outline-offset: 2px !important;
+  transition: outline 0.3s ease !important;
+}
+
+/* ── Verdict badge ── */
+.tl-badge {
+  position: absolute !important;
+  top: 6px !important;
+  left: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  padding: 4px 8px !important;
+  border-radius: 20px !important;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.4px !important;
+  color: #fff !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  z-index: 2147483641 !important;
+  animation: tl-badge-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+  user-select: none !important;
+  white-space: nowrap !important;
+  max-width: 160px !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.35) !important;
+}
+
+.tl-badge-real      { background: rgba(22, 101, 52, 0.88) !important; border: 1px solid #48bb78 !important; }
+.tl-badge-fake      { background: rgba(127, 29, 29, 0.92) !important; border: 1px solid #fc5c5c !important; }
+.tl-badge-suspicious { background: rgba(92, 67, 0, 0.90) !important; border: 1px solid #f6c90e !important; }
+
+.tl-badge-icon {
+  font-size: 13px !important;
+  flex-shrink: 0 !important;
+}
+
+.tl-badge-text {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* ── Tooltip ── */
+.tl-tooltip {
+  position: fixed !important;
+  z-index: 2147483647 !important;
+  width: 260px !important;
+  background: #0f1117 !important;
+  border-radius: 12px !important;
+  padding: 14px 16px !important;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif !important;
+  font-size: 12px !important;
+  color: #e2e8f0 !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08) !important;
+  animation: tl-fade-in 0.2s ease forwards !important;
+  pointer-events: none !important;
+}
+
+.tl-tooltip-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 10px !important;
+  padding-bottom: 10px !important;
+  border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+.tl-tooltip-verdict {
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+}
+
+.tl-tooltip-verdict.real       { color: #68d391 !important; }
+.tl-tooltip-verdict.fake       { color: #fc8181 !important; }
+.tl-tooltip-verdict.suspicious { color: #f6e05e !important; }
+
+.tl-tooltip-confidence {
+  font-size: 11px !important;
+  color: #a0aec0 !important;
+  margin-left: auto !important;
+}
+
+.tl-tooltip-bar-wrap {
+  background: rgba(255,255,255,0.08) !important;
+  border-radius: 4px !important;
+  height: 5px !important;
+  margin-bottom: 12px !important;
+  overflow: hidden !important;
+}
+
+.tl-tooltip-bar {
+  height: 100% !important;
+  border-radius: 4px !important;
+  transition: width 0.6s ease !important;
+}
+
+.tl-tooltip-bar.real        { background: linear-gradient(90deg, #38a169, #68d391) !important; }
+.tl-tooltip-bar.fake        { background: linear-gradient(90deg, #c53030, #fc8181) !important; }
+.tl-tooltip-bar.suspicious  { background: linear-gradient(90deg, #b7791f, #f6e05e) !important; }
+
+.tl-tooltip-label {
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.6px !important;
+  color: #718096 !important;
+  margin-bottom: 6px !important;
+}
+
+.tl-tooltip-reasons {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.tl-tooltip-reasons li {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 6px !important;
+  margin-bottom: 5px !important;
+  font-size: 11px !important;
+  color: #cbd5e0 !important;
+  line-height: 1.4 !important;
+}
+
+.tl-tooltip-reasons li::before {
+  content: '▸' !important;
+  color: #63b3ed !important;
+  flex-shrink: 0 !important;
+  margin-top: 1px !important;
+}
+
+.tl-tooltip-footer {
+  margin-top: 10px !important;
+  padding-top: 8px !important;
+  border-top: 1px solid rgba(255,255,255,0.08) !important;
+  font-size: 10px !important;
+  color: #4a5568 !important;
+  text-align: center !important;
+}
+
+/* ── Warning Banner ── */
+#tl-warning-banner {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 2147483645 !important;
+  background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 50%, #7f1d1d 100%) !important;
+  color: #fff !important;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  padding: 10px 20px !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+  letter-spacing: 0.3px !important;
+  animation: tl-fade-in 0.4s ease !important;
+}
+
+#tl-warning-banner .tl-banner-icon { font-size: 16px !important; }
+#tl-warning-banner .tl-banner-close {
+  position: absolute !important;
+  right: 16px !important;
+  cursor: pointer !important;
+  font-size: 18px !important;
+  opacity: 0.7 !important;
+  transition: opacity 0.2s !important;
+  background: none !important;
+  border: none !important;
+  color: #fff !important;
+  padding: 0 !important;
+}
+#tl-warning-banner .tl-banner-close:hover { opacity: 1 !important; }

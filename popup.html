@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TruthLens – Deepfake Detection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- ── Header ───────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-brand">
+      <div class="logo-ring">
+        <span class="logo-icon">🔍</span>
+      </div>
+      <div>
+        <div class="brand-name">TruthLens</div>
+        <div class="brand-sub">Deepfake Detector</div>
+      </div>
+    </div>
+    <div class="toggle-wrap">
+      <label class="toggle" title="Enable / Disable Detection">
+        <input type="checkbox" id="toggleDetection" checked />
+        <span class="toggle-track">
+          <span class="toggle-thumb"></span>
+        </span>
+      </label>
+    </div>
+  </header>
+
+  <!-- ── Status Pill ───────────────────────────────────────────── -->
+  <div class="status-row">
+    <div class="status-pill" id="statusPill">
+      <span class="status-dot"></span>
+      <span id="statusText">Scanning active</span>
+    </div>
+    <button class="btn-ghost" id="btnRescan" title="Re-scan page">↺ Rescan</button>
+  </div>
+
+  <!-- ── Risk Level Card ──────────────────────────────────────── -->
+  <div class="risk-card" id="riskCard">
+    <div class="risk-label">Page Risk Level</div>
+    <div class="risk-value" id="riskValue">Analyzing…</div>
+    <div class="risk-bar-track">
+      <div class="risk-bar-fill" id="riskBarFill"></div>
+    </div>
+  </div>
+
+  <!-- ── Stats Grid ───────────────────────────────────────────── -->
+  <div class="stats-grid">
+    <div class="stat-card stat-scanned">
+      <div class="stat-icon">📷</div>
+      <div class="stat-num" id="statScanned">0</div>
+      <div class="stat-label">Scanned</div>
+    </div>
+    <div class="stat-card stat-fake">
+      <div class="stat-icon">🚨</div>
+      <div class="stat-num" id="statFake">0</div>
+      <div class="stat-label">Deepfake</div>
+    </div>
+    <div class="stat-card stat-susp">
+      <div class="stat-icon">⚠️</div>
+      <div class="stat-num" id="statSusp">0</div>
+      <div class="stat-label">Suspicious</div>
+    </div>
+    <div class="stat-card stat-real">
+      <div class="stat-icon">✅</div>
+      <div class="stat-num" id="statReal">0</div>
+      <div class="stat-label">Authentic</div>
+    </div>
+  </div>
+
+  <!-- ── Legend ───────────────────────────────────────────────── -->
+  <div class="legend">
+    <div class="legend-title">Border Legend</div>
+    <div class="legend-items">
+      <div class="legend-item"><span class="legend-dot real"></span>Real content</div>
+      <div class="legend-item"><span class="legend-dot fake"></span>Deepfake / AI-generated</div>
+      <div class="legend-item"><span class="legend-dot susp"></span>Suspicious / uncertain</div>
+    </div>
+  </div>
+
+  <!-- ── Action Buttons ───────────────────────────────────────── -->
+  <div class="actions">
+    <button class="btn-primary" id="btnReset">Clear Results</button>
+  </div>
+
+  <!-- ── Footer Disclaimer ────────────────────────────────────── -->
+  <footer class="footer">
+    ⚖️ For educational and ethical use only · TruthLens v1.0
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
